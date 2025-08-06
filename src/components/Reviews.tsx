@@ -4,7 +4,7 @@ import { ReviewItem } from "../models/ReviewItem";
 
 const reviews: ReviewItem[] = [
   {
-    username: "atuny0",
+    username: "User",
     rating: 5,
     review:
       "The product is nice. I got the delivery on time. I am using it for the last four months. My exprience with this product is very good.",

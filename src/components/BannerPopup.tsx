@@ -1,3 +1,4 @@
+/* Modified to add Statsig gate for the banner
 import { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { updateBanner } from "../redux/features/homeSlice";
@@ -34,3 +35,46 @@ const BannerPopup: FC = () => {
 };
 
 export default BannerPopup;
+*/
+import { FC } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { updateBanner } from "../redux/features/homeSlice";
+import { useGateValue } from "@statsig/react-bindings";
+
+const BannerPopup: FC = () => {
+  const show = useAppSelector((state) => state.homeReducer.isBannerVisible);
+  const dispatch = useAppDispatch();
+
+ const value = useGateValue("cyber_banner3");
+
+  // If the banner is hidden locally, or the feature gate disables it, hide the banner
+  if (!show || !value) return null;
+
+  return (
+    <div
+      className={`fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 transition-opacity duration-300 ${
+        show ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <div className="relative">
+        <img
+          src="/banner.jpg"
+          alt="banner"
+          className="w-[50vw] min-w-[300px] m-auto"
+        />
+        <button
+          onClick={() => {
+            dispatch(updateBanner(false));
+          }}
+          className="absolute top-0 right-0 m-2 bg-white rounded-full p-2"
+        >
+          ✖
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default BannerPopup;
+
+

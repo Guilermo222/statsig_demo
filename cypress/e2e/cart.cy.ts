@@ -3,8 +3,8 @@ describe("testing the cart functionalities", () => {
     cy.visit("/");
     cy.get('[data-test="login-btn"]').click();
     cy.get('[data-test="login-container"]').should("be.visible");
-    cy.get('[data-test="input-username"]').type("atuny0");
-    cy.get('[data-test="input-password"]').type("9uQFF1Lh");
+    cy.get('[data-test="input-username"]').type("User");
+    cy.get('[data-test="input-password"]').type("Password");
     cy.get('[data-test="input-submit"]').click();
   });
 
